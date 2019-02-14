@@ -2,7 +2,6 @@ package org.iesalandalus.programacion.reservasaulas.modelo.dominio;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Objects;
 
 /**
  * Clase que representa un tramo de reservas Reserva
@@ -10,31 +9,31 @@ import java.util.Objects;
  * @version 1
  *
  */
-public class Permanencia {
+public abstract class Permanencia {
 
-	private LocalDate dia;
-	private static final DateTimeFormatter FORMATO_DIA = DateTimeFormatter.ofPattern("dd/MM/uuuu");
-	private Tramo tramo;
+	protected LocalDate dia;
+	protected static final DateTimeFormatter FORMATO_DIA = DateTimeFormatter.ofPattern("dd/MM/uuuu");
+
+	/**
+	 * ??
+	 */
+	protected Permanencia() {
+		setDia(LocalDate.now().plusMonths(1));
+	}
 
 	/**
 	 * Constructor de la clase
 	 * @param dia el día de la reserva
-	 * @param tramo el tramo de la reserva
 	 */
-	public Permanencia(LocalDate dia, Tramo tramo) {
+	protected Permanencia(LocalDate dia) throws IllegalArgumentException {
 		setDia(dia);
-		setTramo(tramo);
 	}
 
 	/**
-	 * Constructor copia
-	 * @param p la permanencia a copiar
+	 *
 	 */
-	public Permanencia(Permanencia p) throws IllegalArgumentException {
-		if(p==null)
-			throw new IllegalArgumentException("No se puede copiar una permanencia nula.");
-		setDia(p.getDia());
-		setTramo(p.getTramo());
+	protected Permanencia(String dia) throws IllegalArgumentException {
+		setDia(dia);
 	}
 
 	/**
@@ -47,62 +46,49 @@ public class Permanencia {
 
 	/**
 	 * Método set para el día de la reserva
-	 * @param dia el día de la reserva
+	 * @param dia la fecha de la reserva
 	 * @throws IllegalArgumentException si el día es nulo
 	 */
-	private void setDia(LocalDate dia) throws IllegalArgumentException {
+	protected void setDia(LocalDate dia) throws IllegalArgumentException {
 		if(dia==null)
 			throw new IllegalArgumentException("El día de una permanencia no puede ser nulo.");
 		this.dia = LocalDate.of(dia.getYear(), dia.getMonth(), dia.getDayOfMonth());
 	}
 
 	/**
-	 * Método get para el tramo de la reserva
-	 * @return el tramo de la reserva
+	 * Método set para el día de la reserva
+	 * @param dia la fecha de la reserva
+	 * @throws IllegalArgumentException si el día es nulo
 	 */
-	public Tramo getTramo() {
-		return tramo;
+	protected void setDia(String dia) throws IllegalArgumentException {
+		if(dia==null)
+			throw new IllegalArgumentException("??");
+		if(dia.equals(""))
+			throw new IllegalArgumentException("??");
+		this.dia = LocalDate.parse(dia, FORMATO_DIA);
 	}
 
 	/**
-	 * Método set para el tramo de la reserva
-	 * @param tramo el tramo de la reserva
-	 * @throws IllegalArgumentException si el tramo es nulo
+	 * Obtiene la cantidad de puntos que cuesta reservar un aula durante una permanencia determinada.
+	 * @return la cantidad de puntos que cuesta la permanencia
 	 */
-	private void setTramo(Tramo tramo) throws IllegalArgumentException {
-		if(tramo == null)
-			throw new IllegalArgumentException("El tramo de una permanencia no puede ser nulo.");
-		this.tramo = tramo;
-	}
-
-	/**
-	 * Método hashCode de la clase. Sirve para diferenciar objetos
-	 * @return el código hash del objeto
-	 */
-	public int hashCode() {
-		return Objects.hash(dia, tramo);
-	}
-
-	/**
-	 * Método equals de la clase
-	 * @return True si son iguales, False si no
-	 */
-	public boolean equals(Object o) {
-		if(o==null)
-			return false;
-		if(!(o instanceof Permanencia))
-			return false;
-		Permanencia otra = (Permanencia) o;
-		if(this.getDia().equals(otra.getDia()) && this.getTramo().equals(otra.getTramo()))
-			return true;
-		return false;
-	}
+	public abstract int getPuntos();
 
 	/**
 	 * Representa una permanencia como una cadena de caracteres
 	 * @return la representación de la permanencia
 	 */
-	public String toString() {
-		return "[dia=" + getDia().format(FORMATO_DIA) + ", tramo=" + getTramo() + "]";
-	}
+	public abstract String toString();
+
+	/**
+	 * Método hashCode de la clase. Sirve para diferenciar objetos
+	 * @return el código hash del objeto
+	 */
+	public abstract int hashCode();
+
+	/**
+	 * Método equals de la clase
+	 * @return True si son iguales, False si no
+	 */
+	public abstract boolean equals(Object o);
 }
