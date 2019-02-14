@@ -2,6 +2,8 @@ package org.iesalandalus.programacion.reservasaulas.modelo.dominio;
 
 import java.util.Objects;
 
+import org.iesalandalus.programacion.reservasaulas.modelo.dominio.permanencia.Permanencia;
+
 /**
  * Clase que representa la reserva de un aula en un instituto
  * @see Profesor

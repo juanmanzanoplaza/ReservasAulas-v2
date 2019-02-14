@@ -1,4 +1,4 @@
-package org.iesalandalus.programacion.reservasaulas.modelo.dominio;
+package org.iesalandalus.programacion.reservasaulas.modelo.dominio.permanencia;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
