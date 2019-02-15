@@ -2,11 +2,12 @@ package org.iesalandalus.programacion.reservasaulas.modelo.dominio.permanencia;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * Clase que representa un tramo de reservas Reserva
  * @author Juan Antonio Manzano Plaza
- * @version 1
+ * @version 2
  *
  */
 public abstract class Permanencia {
@@ -30,7 +31,8 @@ public abstract class Permanencia {
 	}
 
 	/**
-	 *
+	 * Constructor de la clase
+	 * @param dia la fecha de la permanencia
 	 */
 	protected Permanencia(String dia) throws IllegalArgumentException {
 		setDia(dia);
@@ -62,10 +64,12 @@ public abstract class Permanencia {
 	 */
 	protected void setDia(String dia) throws IllegalArgumentException {
 		if(dia==null)
-			throw new IllegalArgumentException("??");
-		if(dia.equals(""))
-			throw new IllegalArgumentException("??");
-		this.dia = LocalDate.parse(dia, FORMATO_DIA);
+			throw new IllegalArgumentException("El día de una permanencia no puede ser nulo.");
+		try {
+			this.dia = LocalDate.parse(dia, FORMATO_DIA);
+		} catch(DateTimeParseException e) {
+			throw new IllegalArgumentException("El formato del día de la permanencia no es correcto.");
+		}
 	}
 
 	/**

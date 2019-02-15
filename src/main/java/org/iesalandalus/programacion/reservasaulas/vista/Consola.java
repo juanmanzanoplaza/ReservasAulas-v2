@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import org.iesalandalus.programacion.reservasaulas.modelo.dominio.Aula;
 import org.iesalandalus.programacion.reservasaulas.modelo.dominio.Profesor;
-import org.iesalandalus.programacion.reservasaulas.modelo.dominio.Tramo;
+import org.iesalandalus.programacion.reservasaulas.modelo.dominio.permanencia.Tramo;
 import org.iesalandalus.programacion.utilidades.Entrada;
 
 /**

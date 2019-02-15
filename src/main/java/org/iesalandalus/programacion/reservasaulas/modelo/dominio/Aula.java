@@ -5,7 +5,7 @@ import java.util.Objects;
 /**
  * Clase que representa un aula de un instituto
  * @author Juan Antonio Manzano Plaza
- * @version 1
+ * @version 2
  *
  */
 public class Aula {
@@ -19,6 +19,7 @@ public class Aula {
 	/**
 	 * Constructor de la clase
 	 * @param nombre el nombre del aula
+	 * @param puestos el número de plazas que tiene el aula
 	 */
 	public Aula(String nombre, int puestos) {
 		setNombre(nombre);

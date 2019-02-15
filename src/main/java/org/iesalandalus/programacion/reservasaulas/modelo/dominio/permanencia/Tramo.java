@@ -1,6 +1,4 @@
-package org.iesalandalus.programacion.reservasaulas.modelo.dominio;
-
-import org.iesalandalus.programacion.reservasaulas.modelo.dominio.permanencia.Permanencia;
+package org.iesalandalus.programacion.reservasaulas.modelo.dominio.permanencia;
 
 /**
  * Clase enumerada para los distintos tramos de la permanencia
