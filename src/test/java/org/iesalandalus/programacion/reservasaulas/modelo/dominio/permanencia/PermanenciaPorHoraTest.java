@@ -1,5 +1,5 @@
 package org.iesalandalus.programacion.reservasaulas.modelo.dominio.permanencia;
-/*
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
@@ -9,9 +9,9 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 import org.junit.Test;
-*/
+
 public class PermanenciaPorHoraTest {
-/*	
+
 	private static final String ERROR_EXCEPCION = "Debería haber saltado la excepción.";
 	private static final String ERROR_NO_EXCEPCION = "No debería haber saltado la excepción.";
 	
@@ -105,7 +105,7 @@ public class PermanenciaPorHoraTest {
 			permanencia = new PermanenciaPorHora(dia, HORA_LT);
 			fail(ERROR_EXCEPCION);
 		} catch (IllegalArgumentException e) {
-			assertEquals("El día de una permanencia no puede ser nulo.", e.getMessage());
+			assertEquals("El d�a de una permanencia no puede ser nulo.", e.getMessage());
 			assertNull(permanencia);
 		}
 		try {
@@ -113,7 +113,7 @@ public class PermanenciaPorHoraTest {
 			permanencia = new PermanenciaPorHora(dia, HORA_LT);
 			fail(ERROR_EXCEPCION);
 		} catch (IllegalArgumentException e) {
-			assertEquals("El día de una permanencia no puede ser nulo.", e.getMessage());
+			assertEquals("El d�a de una permanencia no puede ser nulo.", e.getMessage());
 			assertNull(permanencia);
 		}
 		try {
@@ -121,7 +121,7 @@ public class PermanenciaPorHoraTest {
 			permanencia = new PermanenciaPorHora(dia, HORA_LT);
 			fail(ERROR_EXCEPCION);
 		} catch (IllegalArgumentException e) {
-			assertEquals("El formato del día de la permanencia no es correcto.", e.getMessage());
+			assertEquals("El formato del d�a de la permanencia no es correcto.", e.getMessage());
 			assertNull(permanencia);
 		}
 		try {
@@ -241,5 +241,4 @@ public class PermanenciaPorHoraTest {
 	public void toStringTest() {
 		assertEquals("[dia=01/12/2018, hora=10:00]", PERMANENCIA.toString());
 	}
-*/
 }

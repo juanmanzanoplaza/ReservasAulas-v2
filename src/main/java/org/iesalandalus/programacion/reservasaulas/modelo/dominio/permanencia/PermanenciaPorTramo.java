@@ -4,7 +4,8 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 /**
- * Clase que representa un tramo de reservas Reserva
+ * Clase que representa durante cuanto tiempo se reserva un aula. Esta clase permite
+ * que se pueda reservar un aula por un tramo completo (mañana o tarde)
  * @author Juan Antonio Manzano Plaza
  * @version 2
  *
@@ -94,7 +95,7 @@ public class PermanenciaPorTramo extends Permanencia {
 
 	/**
 	 * Método toString de la clase. Define como debe mostrarse una PermanenciaPorTramo
-	 * @return la representación en forma de texto de la permanencia
+	 * @return la representación en forma de texto de la Permanencia
 	 */
 	public String toString() {
 		return "[dia=" + getDia().format(FORMATO_DIA) + ", tramo=" + tramo + "]";

@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * Clase que representa un tramo de reservas Reserva
+ * Clase que representa el tiempo que es reservada un aula.
  * @author Juan Antonio Manzano Plaza
  * @version 2
  *
