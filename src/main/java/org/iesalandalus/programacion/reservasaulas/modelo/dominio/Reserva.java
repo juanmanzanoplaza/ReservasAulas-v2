@@ -3,6 +3,8 @@ package org.iesalandalus.programacion.reservasaulas.modelo.dominio;
 import java.util.Objects;
 
 import org.iesalandalus.programacion.reservasaulas.modelo.dominio.permanencia.Permanencia;
+import org.iesalandalus.programacion.reservasaulas.modelo.dominio.permanencia.PermanenciaPorHora;
+import org.iesalandalus.programacion.reservasaulas.modelo.dominio.permanencia.PermanenciaPorTramo;
 
 /**
  * Clase que representa la reserva de un aula en un instituto
@@ -87,7 +89,10 @@ public class Reserva {
 	private void setPermanencia(Permanencia permanencia) throws IllegalArgumentException {
 		if(permanencia == null)
 			throw new IllegalArgumentException("La reserva se debe hacer para una permanencia concreta.");
-		this.permanencia = new Permanencia(permanencia);
+		if(permanencia instanceof PermanenciaPorHora)
+			this.permanencia = new PermanenciaPorHora((PermanenciaPorHora) permanencia);
+		if(permanencia instanceof PermanenciaPorTramo)
+			this.permanencia = new PermanenciaPorTramo((PermanenciaPorTramo) permanencia);
 	}
 
 	/**
@@ -95,7 +100,18 @@ public class Reserva {
 	 * @return la permanencia de la reserva
 	 */
 	public Permanencia getPermanencia() {
-		return new Permanencia(this.permanencia);
+		if(permanencia instanceof PermanenciaPorTramo)
+			return new PermanenciaPorTramo((PermanenciaPorTramo) permanencia);
+		else
+			return new PermanenciaPorHora((PermanenciaPorHora) permanencia);
+	}
+
+	/**
+	 * Método get para los puntos que cuesta hacer una reserva
+	 * @return los puntos que cuesta hacer una reserva
+	 */
+	public float getPuntos() {
+		return permanencia.getPuntos() + aula.getPuntos();
 	}
 
 	/**
@@ -126,7 +142,7 @@ public class Reserva {
 	 * @return la representación de la reserva
 	 */
 	public String toString() {
-		return "[profesor=" + getProfesor() + ", aula=" + getAula() + ", permanencia=" + getPermanencia() + "]";
+		return "[profesor=" + getProfesor() + ", aula=" + getAula() + ", permanencia=" + getPermanencia() + ", puntos=" + getPuntos() + "]";
 	}
 
 }
