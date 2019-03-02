@@ -11,7 +11,7 @@ import org.iesalandalus.programacion.reservasaulas.modelo.dominio.Aula;
  * Clase que guarda y define las operaciones que se pueden realizar sobre un conjunto de aulas.
  * @see Aula
  * @author Juan Antonio Manzano Plaza
- * @version 1
+ * @version 2
  *
  */
 public class Aulas {
@@ -22,15 +22,15 @@ public class Aulas {
 	 * Constructor por defecto. Inicializa la colección.
 	 */
 	public Aulas() {
-
 		coleccionAulas = new ArrayList<Aula>();
 	}
 
 	/**
 	 * Constructor copia. Realiza copia profunda para evitar aliasing
 	 * @param aulas el objeto del que obtener los datos para inicializar
+	 * @throws IllegalArgumentException si recibe un objeto Aulas nulo
 	 */
-	public Aulas(Aulas aulas) {
+	public Aulas(Aulas aulas) throws IllegalArgumentException {
 		setAulas(aulas);
 	}
 
@@ -77,7 +77,7 @@ public class Aulas {
 	 * Guarda un aula en la colección
 	 * @param aula el aula a guardar
 	 * @throws IllegalArgumentException si el aula es nula
-	 * @throws OperationNotSupportedException si el aula ya existe o se supera la capacidad
+	 * @throws OperationNotSupportedException si el aula ya existe
 	 */
 	public void insertar(Aula aula) throws OperationNotSupportedException, IllegalArgumentException {
 		if(aula==null)

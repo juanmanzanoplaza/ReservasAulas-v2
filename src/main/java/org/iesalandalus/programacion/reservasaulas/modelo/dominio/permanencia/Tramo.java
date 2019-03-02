@@ -4,7 +4,7 @@ package org.iesalandalus.programacion.reservasaulas.modelo.dominio.permanencia;
  * Clase enumerada para los distintos tramos de la permanencia
  * @see Permanencia
  * @author Juan Antonio Manzano Plaza
- * @version 1
+ * @version 2
  */
 public enum Tramo {
 	MANANA("Mañana"),

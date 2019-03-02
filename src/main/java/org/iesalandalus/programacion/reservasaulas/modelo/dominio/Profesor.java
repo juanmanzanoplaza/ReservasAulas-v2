@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 /**
  * Clase que representa un profesor de un instituto
  * @author Juan Antonio Manzano Plaza
- * @version 1
+ * @version 2
  *
  */
 public class Profesor {
@@ -22,8 +22,9 @@ public class Profesor {
 	 * Constructor de la clase
 	 * @param nombre el nombre del profesor
 	 * @param correo el correo electrónico del profesor
+	 * @throws IllegalArgumentException si alguno de los parámetros no es válido
 	 */
-	public Profesor(String nombre, String correo) {
+	public Profesor(String nombre, String correo) throws IllegalArgumentException {
 		setNombre(nombre);
 		setCorreo(correo);
 		setTelefono(null);
@@ -34,8 +35,9 @@ public class Profesor {
 	 * @param nombre el nombre del profesor
 	 * @param correo el correo electrónico del profesor
 	 * @param telefono el teléfono del profesor
+	 * @throws IllegalArgumentException si alguno de los parámetros no es válido
 	 */
-	public Profesor(String nombre, String correo, String telefono) {
+	public Profesor(String nombre, String correo, String telefono) throws IllegalArgumentException {
 		setNombre(nombre);
 		setCorreo(correo);
 		setTelefono(telefono);
@@ -77,8 +79,7 @@ public class Profesor {
 	public void setCorreo(String correo) throws IllegalArgumentException {
 		if(correo==null)
 			throw new IllegalArgumentException("El correo del profesor no puede ser nulo.");
-		Pattern p = Pattern.compile(ER_CORREO);
-		Matcher m = p.matcher(correo);
+		Matcher m = Pattern.compile(ER_CORREO).matcher(correo);
 		if(m.matches())
 			this.correo = correo;
 		else
@@ -95,8 +96,7 @@ public class Profesor {
 		if(telefono==null) {
 			this.telefono = null;
 		} else {
-			Pattern p = Pattern.compile(ER_TELEFONO);
-			Matcher m = p.matcher(telefono);
+			Matcher m = Pattern.compile(ER_TELEFONO).matcher(telefono);
 			if(m.matches())
 				this.telefono = telefono;
 			else

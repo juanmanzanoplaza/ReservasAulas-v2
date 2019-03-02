@@ -20,8 +20,9 @@ public class Aula {
 	 * Constructor de la clase
 	 * @param nombre el nombre del aula
 	 * @param puestos el número de plazas que tiene el aula
+	 * @throws IllegalArgumentException si alguno de los parámetros no es válido
 	 */
-	public Aula(String nombre, int puestos) {
+	public Aula(String nombre, int puestos) throws IllegalArgumentException {
 		setNombre(nombre);
 		setPuestos(puestos);
 	}
@@ -29,6 +30,7 @@ public class Aula {
 	/**
 	 * Constructor copia
 	 * @param otra el aula a copiar
+	 * @throws IllegalArgumentException si el aula es nula
 	 */
 	public Aula(Aula otra) throws IllegalArgumentException {
 		if(otra==null)
@@ -61,8 +63,9 @@ public class Aula {
 	/**
 	 * Método set para el número de asientos de un aula
 	 * @param puestos los número de asientos de un aula
+	 * @throws IllegalArgumentException si el número de puestos no están entre el máximo y el mínimo
 	 */
-	private void setPuestos(int puestos) {
+	private void setPuestos(int puestos) throws IllegalArgumentException {
 		if(puestos<MIN_PUESTOS || puestos>MAX_PUESTOS)
 			throw new IllegalArgumentException("El número de puestos no es correcto.");
 		this.puestos = puestos;

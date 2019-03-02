@@ -1,11 +1,11 @@
 package org.iesalandalus.programacion.reservasaulas.vista;
 
 /**
- * 
+ *
  * Representa las distintas opciones que ofrece el menú de la aplicación.
- * @see IUTextual
+ * @see VistaReservasAulas
  * @author Juan Antonio Manzano Plaza
- * @version 1
+ * @version 2
  *
  */
 public enum Opcion {
@@ -14,84 +14,84 @@ public enum Opcion {
 			vista.salir();
 		}
 	}
-	, INSERTAR_AULA("Insertar aula:") {
+	, INSERTAR_AULA("Insertar aula.") {
 		public void ejecutar() {
 			vista.insertarAula();
 		}
 	}
-	, BORRAR_AULA("Borrar aula:") {
+	, BORRAR_AULA("Borrar aula.") {
 		public void ejecutar() {
 			vista.borrarAula();
 		}
 	}
-	, BUSCAR_AULA("Buscar aula:") {
+	, BUSCAR_AULA("Buscar aula.") {
 		public void ejecutar() {
 			vista.buscarAula();
 		}
 	}
-	, LISTAR_AULAS("Listar aulas:") {
+	, LISTAR_AULAS("Listar aulas.") {
 		public void ejecutar() {
 			vista.listarAulas();
 		}
 	}
-	, INSERTAR_PROFESOR("Insertar profesor:") {
+	, INSERTAR_PROFESOR("Insertar profesor.") {
 		public void ejecutar() {
 			vista.insertarProfesor();
 		}
 	}
-	, BORRAR_PROFESOR("Borrar profesor:") {
+	, BORRAR_PROFESOR("Borrar profesor.") {
 		public void ejecutar() {
 			vista.borrarProfesor();
 		}
 	}
-	, BUSCAR_PROFESOR("Buscar profesor:") {
+	, BUSCAR_PROFESOR("Buscar profesor.") {
 		public void ejecutar() {
 			vista.buscarProfesor();
 		}
 	}
-	, LISTAR_PROFESORES("Listar profesores:") {
+	, LISTAR_PROFESORES("Listar profesores.") {
 		public void ejecutar() {
 			vista.listarProfesores();
 		}
 	}
-	, INSERTAR_RESERVA("Insertar reserva:") {
+	, INSERTAR_RESERVA("Insertar reserva.") {
 		public void ejecutar() {
 			vista.realizarReserva();
 		}
 	}
-	, BORRAR_RESERVA("Borrar reserva:") {
+	, BORRAR_RESERVA("Borrar reserva.") {
 		public void ejecutar() {
 			vista.anularReserva();
 		}
 	}
-	, LISTAR_RESERVAS("Listar reservas:") {
+	, LISTAR_RESERVAS("Listar reservas.") {
 		public void ejecutar() {
 			vista.listarReservas();
 		}
 	}
-	, LISTAR_RESERVAS_AULA("Listar reservas por aula:") {
+	, LISTAR_RESERVAS_AULA("Listar reservas por aula.") {
 		public void ejecutar() {
 			vista.listarReservasAula();
 		}
 	}
-	, LISTAR_RESERVAS_PROFESOR("Listar reservas por profesor:") {
+	, LISTAR_RESERVAS_PROFESOR("Listar reservas por profesor.") {
 		public void ejecutar() {
 			vista.listarReservasProfesor();
 		}
 	}
-	, LISTAR_RESERVAS_PERMANENCIA("Listar reservas por permanencia:") {
+	, LISTAR_RESERVAS_PERMANENCIA("Listar reservas por permanencia.") {
 		public void ejecutar() {
 			vista.listarReservasPermanencia();
 		}
 	}
-	, CONSULTAR_DISPONIBILIDAD("Consultar disponibilidad:") {
+	, CONSULTAR_DISPONIBILIDAD("Consultar disponibilidad.") {
 		public void ejecutar() {
 			vista.consultarDisponibilidad();
 		}
 	};
-	
+
 	private String mensajeAMostrar;
-	private static IUTextual vista;
+	private static IVistaReservasAulas vista;
 
 	/**
 	 * Constructor privado para evitar instanciar objetos de la clase.
@@ -110,16 +110,16 @@ public enum Opcion {
 	}
 
 	/**
-	 * Llama al método correspondiente a la opción de la clase IUTextual
+	 * Llama al método correspondiente a la opción de la clase VistaReservasAulas
 	 */
 	public abstract void ejecutar();
 
 	/**
 	 * Método set que inicializa la variable vista
-	 * @param iutextual objeto de la clase IUTextual sobre el que se van a realizar las opciones
+	 * @param vist objeto de la clase VistaReservasAulas sobre el que se van a realizar las opciones
 	 */
-	protected static void setVista(IUTextual iutextual) {
-		vista = iutextual;
+	protected static void setVista(IVistaReservasAulas vist) {
+		vista = vist;
 	}
 
 	/**

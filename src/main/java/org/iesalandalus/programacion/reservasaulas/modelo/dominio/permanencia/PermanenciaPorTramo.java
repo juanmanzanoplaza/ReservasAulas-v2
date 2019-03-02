@@ -19,8 +19,9 @@ public class PermanenciaPorTramo extends Permanencia {
 	 * Constructor de la clase
 	 * @param dia el día que es reservada el aula
 	 * @param tramo el tramo para el que es reservada el aula
+	 * @throws IllegalArgumentException si el día o el tramo no son válidos
 	 */
-	public PermanenciaPorTramo(LocalDate dia, Tramo tramo) {
+	public PermanenciaPorTramo(LocalDate dia, Tramo tramo) throws IllegalArgumentException {
 		super(dia);
 		setTramo(tramo);
 	}
@@ -29,8 +30,9 @@ public class PermanenciaPorTramo extends Permanencia {
 	 * Constructor de la clase
 	 * @param dia el día que es reservada el aula
 	 * @param tramo el tramo para el que es reservada el aula
+	 * @throws IllegalArgumentException si el día o el tramo parámetros no son válidos
 	 */
-	public PermanenciaPorTramo(String dia, Tramo tramo) {
+	public PermanenciaPorTramo(String dia, Tramo tramo) throws IllegalArgumentException {
 		super(dia);
 		setTramo(tramo);
 	}
@@ -38,11 +40,12 @@ public class PermanenciaPorTramo extends Permanencia {
 	/**
 	 * Constructor copia
 	 * @param otra la permanencia a copiar
+	 * @throws IllegalArgumentException si la permanencia es nula
 	 */
-	public PermanenciaPorTramo(PermanenciaPorTramo otra) {
+	public PermanenciaPorTramo(PermanenciaPorTramo otra) throws IllegalArgumentException {
 		if(otra==null)
 			throw new IllegalArgumentException("No se puede copiar una permanencia nula.");
-		setDia(otra.getDia());
+		super.setDia(otra.getDia());
 		setTramo(otra.getTramo());
 	}
 
@@ -57,8 +60,9 @@ public class PermanenciaPorTramo extends Permanencia {
 	/**
 	 * Método set para el tramo de la reserva
 	 * @param tramo el tramo para el que es reservada el aula
+	 * @throws IllegalArgumentException si el tramo es nulo
 	 */
-	private void setTramo(Tramo tramo) {
+	private void setTramo(Tramo tramo) throws IllegalArgumentException {
 		if(tramo==null)
 			throw new IllegalArgumentException("El tramo de una permanencia no puede ser nulo.");
 		this.tramo = tramo;

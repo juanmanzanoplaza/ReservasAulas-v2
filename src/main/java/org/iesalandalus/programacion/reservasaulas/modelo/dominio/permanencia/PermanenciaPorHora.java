@@ -25,8 +25,9 @@ public class PermanenciaPorHora extends Permanencia{
 	 * Constructor de la clase
 	 * @param dia el día que es reservada el aula
 	 * @param hora la hora durante la que es reservada el aula
+	 * @throws IllegalArgumentException si el día o la hora no son válidos
 	 */
-	public PermanenciaPorHora(LocalDate dia, LocalTime hora) {
+	public PermanenciaPorHora(LocalDate dia, LocalTime hora) throws IllegalArgumentException{
 		super(dia);
 		setHora(hora);
 	}
@@ -35,8 +36,9 @@ public class PermanenciaPorHora extends Permanencia{
 	 * Constructor de la clase
 	 * @param dia el día que es reservada el aula
 	 * @param hora la hora durante la que es reservada el aula
+	 * @throws IllegalArgumentException si el día o la hora no son válidos
 	 */
-	public PermanenciaPorHora(String dia, LocalTime hora) {
+	public PermanenciaPorHora(String dia, LocalTime hora) throws IllegalArgumentException {
 		super(dia);
 		setHora(hora);
 	}
@@ -45,8 +47,9 @@ public class PermanenciaPorHora extends Permanencia{
 	 * Constructor de la clase
 	 * @param dia el día que es reservada el aula
 	 * @param hora la hora durante la que es reservada el aula
+	 * @throws IllegalArgumentException si el día o la hora no son válidos
 	 */
-	public PermanenciaPorHora(LocalDate dia, String hora) {
+	public PermanenciaPorHora(LocalDate dia, String hora) throws IllegalArgumentException {
 		super(dia);
 		setHora(hora);
 	}
@@ -55,8 +58,9 @@ public class PermanenciaPorHora extends Permanencia{
 	 * Constructor de la clase
 	 * @param dia el día que es reservada el aula
 	 * @param hora la hora durante la que es reservada el aula
+	 * @throws IllegalArgumentException si el día o la hora no son válidos
 	 */
-	public PermanenciaPorHora(String dia, String hora) {
+	public PermanenciaPorHora(String dia, String hora) throws IllegalArgumentException {
 		super(dia);
 		setHora(hora);
 	}
@@ -64,8 +68,9 @@ public class PermanenciaPorHora extends Permanencia{
 	/**
 	 * Constructor copia de la clase
 	 * @param otra la permanencia a copiar
+	 * @throws IllegalArgumentException si la permanencia a copiar es nula
 	 */
-	public PermanenciaPorHora(PermanenciaPorHora otra) {
+	public PermanenciaPorHora(PermanenciaPorHora otra) throws IllegalArgumentException {
 		if(otra==null)
 			throw new IllegalArgumentException("No se puede copiar una permanencia nula.");
 		super.setDia(otra.getDia());
@@ -83,8 +88,9 @@ public class PermanenciaPorHora extends Permanencia{
 	/**
 	 * Método set para la hora de la permanencia
 	 * @param hora la hora de la permanencia
+	 * @throws IllegalArgumentException si la hora no cumple alguna de las restricciones sobre las horas o no es válida
 	 */
-	private void setHora(LocalTime hora) {
+	private void setHora(LocalTime hora) throws IllegalArgumentException {
 		if(hora==null)
 			throw new IllegalArgumentException("La hora de una permanencia no puede ser nula.");
 		if(hora.getHour()<HORA_INICIO || hora.getHour()>HORA_FIN)
@@ -97,8 +103,9 @@ public class PermanenciaPorHora extends Permanencia{
 	/**
 	 * Método set para la hora de la permanencia
 	 * @param hora la hora de la permanencia
+	 * @throws IllegalArgumentException si la hora no cumple alguna de las restricciones sobre las horas o no es válida
 	 */
-	private void setHora(String hora) {
+	private void setHora(String hora) throws IllegalArgumentException {
 		if(hora==null)
 			throw new IllegalArgumentException("La hora de una permanencia no puede ser nula.");
 		LocalTime otraHora = null;

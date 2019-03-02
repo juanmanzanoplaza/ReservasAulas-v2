@@ -11,7 +11,7 @@ import org.iesalandalus.programacion.reservasaulas.modelo.dominio.Profesor;
  * Clase que guarda y define las operaciones que se pueden realizar sobre un conjunto de profesores
  * @see Profesor
  * @author Juan Antonio Manzano Plaza
- * @version 1
+ * @version 2
  *
  */
 public class Profesores {
@@ -28,8 +28,9 @@ public class Profesores {
 	/**
 	 * Constructor copia. Realiza copia profunda para evitar aliasing
 	 * @param profesores el objeto del que obtener los datos para inicializar
+	 * @throws IllegalArgumentException si recibe un conjunto de profesores nulos
 	 */
-	public Profesores(Profesores profesores) {
+	public Profesores(Profesores profesores) throws IllegalArgumentException {
 		setProfesores(profesores);
 	}
 
@@ -76,7 +77,7 @@ public class Profesores {
 	 * Guarda un profesor en la colección
 	 * @param profesor el profesor a guardar
 	 * @throws IllegalArgumentException si el profesor es nulo
-	 * @throws OperationNotSupportedException si el profesor ya existe o se supera la capacidad
+	 * @throws OperationNotSupportedException si el profesor ya existe
 	 */
 	public void insertar(Profesor profesor) throws OperationNotSupportedException, IllegalArgumentException {
 		if(profesor==null)

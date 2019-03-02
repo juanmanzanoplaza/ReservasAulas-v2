@@ -17,7 +17,7 @@ import org.iesalandalus.programacion.reservasaulas.modelo.dominio.permanencia.Pe
  * Clase que guarda y define las operaciones que se pueden realizar sobre un conjunto de reservas.
  * @see Reserva
  * @author Juan Antonio Manzano Plaza
- * @version 1
+ * @version 2
  *
  */
 public class Reservas {
@@ -35,8 +35,9 @@ public class Reservas {
 	/**
 	 * Constructor copia. Realiza copia profunda para evitar aliasing
 	 * @param reservas el objeto del que obtener los datos para inicializar
+	 * @throws IllegalArgumentException si recibe un conjunto de reservas nulas
 	 */
-	public Reservas(Reservas reservas) {
+	public Reservas(Reservas reservas) throws IllegalArgumentException {
 		setReservas(reservas);
 	}
 
@@ -83,51 +84,84 @@ public class Reservas {
 	 * Guarda una reserva en la colección
 	 * @param reserva la reserva a guardar
 	 * @throws IllegalArgumentException si la reserva es nula
-	 * @throws OperationNotSupportedException si la reserva ya existe o se supera la capacidad
+	 * @throws OperationNotSupportedException si la reserva ya existe
 	 */
 	public void insertar(Reserva reserva) throws OperationNotSupportedException, IllegalArgumentException{
+		//Comprobamos que es una reserva válida
 		if(reserva==null)
 			throw new IllegalArgumentException("No se puede realizar una reserva nula.");
 		if(this.coleccionReservas.contains(reserva))
 			throw new OperationNotSupportedException("La reserva ya existe.");
-		Reserva yaRealizada = getReservaDia(reserva.getPermanencia().getDia());
-		if(yaRealizada!=null) {
-			if(yaRealizada.getPermanencia() instanceof PermanenciaPorHora && reserva.getPermanencia() instanceof PermanenciaPorTramo)
-				throw new OperationNotSupportedException("Ya se ha realizado una reserva por hora para este día y aula.");
-			if(getReservaDia(reserva.getPermanencia().getDia()).getPermanencia() instanceof PermanenciaPorTramo && reserva.getPermanencia() instanceof PermanenciaPorHora)
-				throw new OperationNotSupportedException("Ya se ha realizado una reserva por tramo para este día y aula.");
-		}
 		if(!esMesSiguienteOPosterior(reserva))
 			throw new OperationNotSupportedException("Sólo se pueden hacer reservas para el mes que viene o posteriores.");
-		List<Reserva> reservasProfesor = getReservasProfesorMes(reserva.getProfesor(), reserva.getPermanencia().getDia());
-		float puntosProfesor = 0;
-		for (Reserva r : reservasProfesor)
-			puntosProfesor += r.getPuntos();
-		if(getPuntosGastadosReserva(reserva)>(MAX_PUNTOS_PROFESOR_MES - puntosProfesor))
+		if(getPuntosGastadosReserva(reserva)>MAX_PUNTOS_PROFESOR_MES)
 			throw new OperationNotSupportedException("Esta reserva excede los puntos máximos por mes para dicho profesor.");
+
+		Permanencia permanenciaReserva = reserva.getPermanencia();
+		Aula aulaReserva = reserva.getAula();
+		List<Reserva> reservasAula = getReservasAula(aulaReserva);
+
+		//Comprobamos que las permanencias son del tipo que corresponde para ese aula y día
+		//Comprobamos que ese aula no está reservada para ese aula y permanencia
+		for(Reserva r : reservasAula) {
+			if(r.getPermanencia() instanceof PermanenciaPorTramo
+					&& permanenciaReserva instanceof PermanenciaPorHora
+					&& r.getPermanencia().getDia().equals(permanenciaReserva.getDia()))
+				throw new OperationNotSupportedException("Ya se ha realizado una reserva por tramo para este día y aula.");
+			if(r.getPermanencia() instanceof PermanenciaPorHora
+					&& permanenciaReserva instanceof PermanenciaPorTramo
+					&& r.getPermanencia().getDia().equals(permanenciaReserva.getDia()))
+				throw new OperationNotSupportedException("Ya se ha realizado una reserva por hora para este día y aula.");
+		}
+		//Si ha pasado todas las comprobaciones añadimos la reserva
 		coleccionReservas.add(reserva);
 	}
-	
-	private boolean esMesSiguienteOPosterior(Reserva aReservar) {
-		LocalDate actual = LocalDate.now().plusMonths(1);
-		if(aReservar.getPermanencia().getDia().isBefore(LocalDate.of(actual.getYear(), actual.getMonth(), 1)))
+
+	/**
+	 * Comprueba si el mes de la permanencia de la reserva es del mes siguiente al actual
+	 * @param aInsertar la reserva de la que queremos comprobar la fecha
+	 * @return true si la fecha es del mes siguiente o posterior, false si no
+	 */
+	private boolean esMesSiguienteOPosterior(Reserva aInsertar) {
+		LocalDate mesSiguiente = LocalDate.now().plusMonths(1);
+		if(aInsertar.getPermanencia().getDia().isBefore(LocalDate.of(mesSiguiente.getYear(), mesSiguiente.getMonth(), 1)))
 			return false;
 		return true;
 	}
-	
-	private float getPuntosGastadosReserva(Reserva aReservar) {
-		return aReservar.getPuntos();
+
+	/**
+	 * Obtiene los puntos gastados en las reservas de el mes de ese profesor
+	 * @param aInsertar la reserva de la que queremos obtener los puntos gastados en ese mes por ese profesor
+	 * @return el número de puntos gastadods en el mes de la reserva por el profesor de la reserva
+	 */
+	private float getPuntosGastadosReserva(Reserva aInsertar) {
+		List<Reserva> reservasProfesor = getReservasProfesorMes(aInsertar.getProfesor(), aInsertar.getPermanencia().getDia());
+		float puntosProfesor = 0f;
+		for(Reserva r : reservasProfesor) {
+			puntosProfesor += r.getPuntos();
+		}
+		return puntosProfesor + aInsertar.getPuntos();
 	}
-	
+
+	/**
+	 * Obtiene las reservas correspondientes al profesor y día obtenidos por parámetro
+	 * @param reservador el profesor a cuyo nombre están las reservas
+	 * @param dia la fecha de la que obtener el mes
+	 * @return una lista con las reservas correspondientes a ese profesor durante el mes
+	 */
 	private List<Reserva> getReservasProfesorMes(Profesor reservador, LocalDate dia){
 		List<Reserva> devolver = new ArrayList<Reserva>();
-		for (Reserva reserva : coleccionReservas) {
-			if(reserva.getProfesor().equals(reservador) && reserva.getPermanencia().getDia().getMonthValue()==dia.getMonthValue())
+		for(Reserva reserva : coleccionReservas) {
+			if(reserva.getProfesor().equals(reservador)
+					&& reserva.getPermanencia().getDia().getMonthValue()==dia.getMonthValue()
+					&& reserva.getPermanencia().getDia().getYear()==dia.getYear())
 				devolver.add(reserva);
 		}
 		return devolver;
 	}
-	
+
+	/*
+	//ESTE MÉTODO NO SE EN QUE UTILIZARLO
 	private Reserva getReservaDia(LocalDate dia) {
 		for(Reserva reserva : coleccionReservas) {
 			if(reserva.getPermanencia().getDia().equals(dia))
@@ -135,6 +169,7 @@ public class Reservas {
 		}
 		return null;
 	}
+	*/
 
 	/**
 	 * Busca una reserva en la colección
@@ -158,6 +193,7 @@ public class Reservas {
 	public void borrar(Reserva reserva) throws OperationNotSupportedException, IllegalArgumentException {
 		if(reserva==null)
 			throw new IllegalArgumentException("No se puede anular una reserva nula.");
+		//Si no consigue eliminar la reserva lanza la excepción
 		if(!this.coleccionReservas.remove(reserva))
 			throw new OperationNotSupportedException("La reserva a anular no existe.");
 	}
@@ -207,23 +243,6 @@ public class Reservas {
 		return devolver;
 	}
 
-	/*
-	 * public List<Reserva> getReservasAula(Aula aula) {
-		if(aula==null)
-			throw new IllegalArgumentException("No se pueden comprobar las reservas realizadas sobre un aula nula.");
-		List<Reserva> reservaAula = new ArrayList<>();
-
-		for (Reserva reserva : coleccionReservas) {
-                  if( coleccionReservas.contains(aula))
-
-				reservaAula.add(new Reserva(reserva));
-
-			}
-
-		return reservaAula;
-	}
-	 */
-
 	/**
 	 * Obtiene las reservas realizadas en una fecha y tramo concretos
 	 * @param permanencia la fecha y el tramo de las reservas
@@ -246,15 +265,26 @@ public class Reservas {
 	 * @param aula el aula a comprobar
 	 * @param permanencia la fecha y tramo en las que comprobar el aula
 	 * @return True si está disponible, False si está reservada
+	 * @throws IllegalArgumentException si el aula o la permanencia son nulas, o si el tipo de permanencia consultado no coincide con el de las reservas realizadas sobre ese aula ese día
 	 */
 	public boolean consultarDisponibilidad(Aula aula, Permanencia permanencia) throws IllegalArgumentException {
 		if(aula==null)
 			throw new IllegalArgumentException("No se puede consultar la disponibilidad de un aula nula.");
 		if(permanencia==null)
 			throw new IllegalArgumentException("No se puede consultar la disponibilidad de una permanencia nula.");
+
+		//Diferenciamos el tipo de permanencia
 		for(Reserva r : this.coleccionReservas) {
-			if(r.getAula().equals(aula) && r.getPermanencia().equals(permanencia))
-				return false;
+			if(r.getAula().equals(aula) && r.getPermanencia().getDia().equals(permanencia.getDia())) {
+				if(r.getPermanencia() instanceof PermanenciaPorTramo
+						&& permanencia instanceof PermanenciaPorHora)
+					throw new IllegalArgumentException("Las reservas realizadas para ese aula y día son por tramo.");
+				if(r.getPermanencia() instanceof PermanenciaPorHora
+						&& permanencia instanceof PermanenciaPorTramo)
+					throw new IllegalArgumentException("Las reservas realizadas para ese aula y día son por hora.");
+				if(r.getPermanencia().equals(permanencia))
+					return false;
+			}
 		}
 		return true;
 	}

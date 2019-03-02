@@ -1,8 +1,5 @@
 package org.iesalandalus.programacion.reservasaulas.vista;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import org.iesalandalus.programacion.reservasaulas.modelo.dominio.Aula;
 import org.iesalandalus.programacion.reservasaulas.modelo.dominio.Profesor;
 import org.iesalandalus.programacion.reservasaulas.modelo.dominio.permanencia.Tramo;
@@ -10,16 +7,14 @@ import org.iesalandalus.programacion.utilidades.Entrada;
 
 /**
  *
- * Clase dedicada a la interacción con el usuario. Pide y valida los datos por teclado.
- * @see IUTextual
+ * Clase dedicada a la interacción con el usuario. Pide y lee los datos por teclado
+ * @see VistaReservasAulas
  * @see Opcion
  * @author Juan Antonio Manzano Plaza
- * @version 0
+ * @version 2
  *
  */
 public class Consola {
-
-	private static final DateTimeFormatter FORMATO_DIA = DateTimeFormatter.ofPattern("dd/MM/uuuu");
 
 	/**
 	 * Constructor privado para evitar que se instancien objetos de la clase.
@@ -56,10 +51,8 @@ public class Consola {
 	 */
 	public static int elegirOpcion() {
 		int opcion;
-		do {
-			System.out.println("¿Qué opción desea elegir?");
-			opcion = Entrada.entero();
-		} while(!Opcion.esOrdinalValido(opcion));
+		System.out.println("¿Qué opción desea elegir?");
+		opcion = Entrada.entero();
 		return opcion;
 	}
 
@@ -69,14 +62,11 @@ public class Consola {
 	 */
 	public static Aula leerAula() {
 		Aula leida = null;
-		do {
-			try {
-				leida = new Aula(leerNombreAula());
-				System.out.println("Aula leída correctamente.");
-			} catch (IllegalArgumentException e) {
-				System.out.println(e.getMessage());
-			}
-		} while(leida==null);
+		String nombre = leerNombreAula();
+		System.out.println("Introduzca el número de puestos del aula.");
+		int puestos = Entrada.entero();
+		leida = new Aula(nombre, puestos);
+		System.out.println("Aula leída correctamente.");
 		return leida;
 	}
 
@@ -86,10 +76,8 @@ public class Consola {
 	 */
 	public static String leerNombreAula() {
 		String nombre;
-		do {
-			System.out.println("Introduzca el nombre del aula.");
-			nombre = Entrada.cadena();
-		}while(nombre.equals(""));
+		System.out.println("Introduzca el nombre del aula.");
+		nombre = Entrada.cadena();
 		return nombre;
 	}
 
@@ -99,22 +87,16 @@ public class Consola {
 	 */
 	public static Profesor leerProfesor() {
 		Profesor leido = null;
-		do {
-			try {
-				String nombre = leerNombreProfesor();
-				System.out.println("Introduzca el correo electrónico del profesor.");
-				String correo = Entrada.cadena();
-				System.out.println("Introduzca el teléfono del profesor. (Puede dejarse vacío)");
-				String telefono = Entrada.cadena();
-				if(telefono.equals(""))
-					leido = new Profesor(nombre, correo);
-				else
-					leido = new Profesor(nombre, correo, telefono);
-				System.out.println("Profesor leído correctamente.");
-			} catch (IllegalArgumentException e) {
-				System.out.println(e.getMessage());
-			}
-		} while(leido==null);
+		String nombre = leerNombreProfesor();
+		System.out.println("Introduzca el correo electrónico del profesor.");
+		String correo = Entrada.cadena();
+		System.out.println("Introduzca el teléfono del profesor. (Puede dejarse vacío)");
+		String telefono = Entrada.cadena();
+		if(telefono.equals(""))
+			leido = new Profesor(nombre, correo);
+		else
+			leido = new Profesor(nombre, correo, telefono);
+		System.out.println("Profesor leído correctamente.");
 		return leido;
 	}
 
@@ -124,10 +106,8 @@ public class Consola {
 	 */
 	public static String leerNombreProfesor() {
 		String nombre;
-		do {
-			System.out.println("Introduzca el nombre del profesor.");
-			nombre = Entrada.cadena();
-		} while(nombre.equals(""));
+		System.out.println("Introduzca el nombre del profesor.");
+		nombre = Entrada.cadena();
 		return nombre;
 	}
 
@@ -140,28 +120,46 @@ public class Consola {
 	public static Tramo leerTramo() {
 		int opcion;
 		do {
-			System.out.println("¿Tramo de mañana(0) o de tarde(1)?");
+			System.out.println("¿Tramo de mañana (0) o de tarde (1)?");
 			opcion = Entrada.entero();
-		} while(opcion<0 || opcion>Tramo.values().length);
+		} while(opcion<0 || opcion>Tramo.values().length-1);
 		return Tramo.values()[opcion];
 
 	}
 
 	/**
-	 * Lee una fecha con un formato específico.
+	 * Lee por consola el día para una permanencia
 	 * @return la fecha leída
 	 */
-	public static LocalDate leerDia() {
-		LocalDate leido = null;
+	public static String leerDia() {
+		String dia = "";
+		System.out.println("Introduzca una fecha en el formato \"dd/mm/aaaa\".");
+		dia = Entrada.cadena();
+		return dia;
+	}
+
+	/**
+	 * Lee por consola la hora para una permanencia por hora
+	 * @return la hora leída
+	 */
+	public static String leerHora() {
+		String hora = "";
+		System.out.println("Introduzca una hora en el formato hh:mm");
+		hora = Entrada.cadena();
+		return hora;
+	}
+
+	/**
+	 * Lee por consola el tipo de permanencia que se desea leer
+	 * @return el tipo de permanencia elegido
+	 */
+	public static int elegirPermanencia() {
+		int permanencia = -1;
 		do {
-			System.out.println("Introduzca una fecha en el formato \"dd/mm/aaaa\".");
-			try {
-				leido = LocalDate.parse(Entrada.cadena(), FORMATO_DIA);
-			} catch (DateTimeParseException e) {
-				System.out.println("La fecha introducida no está en el formato correcto o no es válida.");
-			}
-		} while (leido == null);
-		return leido;
+			System.out.println("¿Por horas (0) o por tramo (1)?");
+			permanencia = Entrada.entero();
+		} while (permanencia<0 || permanencia>1);
+		return permanencia;
 	}
 
 }

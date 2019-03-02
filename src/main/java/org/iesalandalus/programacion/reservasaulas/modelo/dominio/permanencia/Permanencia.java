@@ -16,15 +16,18 @@ public abstract class Permanencia {
 	protected static final DateTimeFormatter FORMATO_DIA = DateTimeFormatter.ofPattern("dd/MM/uuuu");
 
 	/**
-	 * ??
+	 * NECESARIO PARA LAS LLAMADAS AL SUPER DESDE LAS CLASES HIJAS SIN PARÁMETROS
+	 * Puede ser vacío o darle un valor por defecto, es indiferente por que lo sobreescribiremos
+	 * en las implementaciones de los constructores de las clases hijas.
 	 */
 	protected Permanencia() {
-		setDia(LocalDate.now().plusMonths(1));
+		setDia(LocalDate.now());
 	}
 
 	/**
 	 * Constructor de la clase
 	 * @param dia el día de la reserva
+	 * @throws IllegalArgumentException si el día de la permanencia no es válido
 	 */
 	protected Permanencia(LocalDate dia) throws IllegalArgumentException {
 		setDia(dia);
@@ -33,6 +36,7 @@ public abstract class Permanencia {
 	/**
 	 * Constructor de la clase
 	 * @param dia la fecha de la permanencia
+	 * @throws IllegalArgumentException si el día de la permanencia no es válido
 	 */
 	protected Permanencia(String dia) throws IllegalArgumentException {
 		setDia(dia);
@@ -43,7 +47,7 @@ public abstract class Permanencia {
 	 * @return el día de la reserva
 	 */
 	public LocalDate getDia() {
-		return LocalDate.of(dia.getYear(), dia.getMonth(), dia.getDayOfMonth());
+		return this.dia;
 	}
 
 	/**
@@ -60,7 +64,7 @@ public abstract class Permanencia {
 	/**
 	 * Método set para el día de la reserva
 	 * @param dia la fecha de la reserva
-	 * @throws IllegalArgumentException si el día es nulo
+	 * @throws IllegalArgumentException si el día es nulo o el formato no es válido
 	 */
 	protected void setDia(String dia) throws IllegalArgumentException {
 		if(dia==null)

@@ -12,7 +12,7 @@ import org.iesalandalus.programacion.reservasaulas.modelo.dominio.permanencia.Pe
  * @see Aula
  * @see Permanencia
  * @author Juan Antonio Manzano Plaza
- * @version 1
+ * @version 2
  */
 public class Reserva {
 	private Profesor profesor;
@@ -24,8 +24,9 @@ public class Reserva {
 	 * @param profesor el profesor que reserva el aula
 	 * @param aula el aula que es reservada
 	 * @param permanencia el día y el tramo en el que es reservada
+	 * @throws IllegalArgumentException si alguno de los parámetros no es válido
 	 */
-	public Reserva(Profesor profesor, Aula aula, Permanencia permanencia) {
+	public Reserva(Profesor profesor, Aula aula, Permanencia permanencia) throws IllegalArgumentException {
 		setProfesor(profesor);
 		setAula(aula);
 		setPermanencia(permanencia);
@@ -66,6 +67,7 @@ public class Reserva {
 	/**
 	 * Método set para el aula de la reserva
 	 * @param aula el aula reservada
+	 * @throws IllegalArgumentException si el aula es nula
 	 */
 	private void setAula(Aula aula) throws IllegalArgumentException {
 		if(aula == null)
