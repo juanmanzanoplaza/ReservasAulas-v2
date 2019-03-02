@@ -3,6 +3,7 @@ package org.iesalandalus.programacion.reservasaulas.vista;
 /**
  *
  * Representa las distintas opciones que ofrece el menú de la aplicación.
+ * 
  * @see VistaReservasAulas
  * @author Juan Antonio Manzano Plaza
  * @version 2
@@ -13,78 +14,78 @@ public enum Opcion {
 		public void ejecutar() {
 			vista.salir();
 		}
-	}
-	, INSERTAR_AULA("Insertar aula.") {
+	},
+	INSERTAR_AULA("Insertar aula.") {
 		public void ejecutar() {
 			vista.insertarAula();
 		}
-	}
-	, BORRAR_AULA("Borrar aula.") {
+	},
+	BORRAR_AULA("Borrar aula.") {
 		public void ejecutar() {
 			vista.borrarAula();
 		}
-	}
-	, BUSCAR_AULA("Buscar aula.") {
+	},
+	BUSCAR_AULA("Buscar aula.") {
 		public void ejecutar() {
 			vista.buscarAula();
 		}
-	}
-	, LISTAR_AULAS("Listar aulas.") {
+	},
+	LISTAR_AULAS("Listar aulas.") {
 		public void ejecutar() {
 			vista.listarAulas();
 		}
-	}
-	, INSERTAR_PROFESOR("Insertar profesor.") {
+	},
+	INSERTAR_PROFESOR("Insertar profesor.") {
 		public void ejecutar() {
 			vista.insertarProfesor();
 		}
-	}
-	, BORRAR_PROFESOR("Borrar profesor.") {
+	},
+	BORRAR_PROFESOR("Borrar profesor.") {
 		public void ejecutar() {
 			vista.borrarProfesor();
 		}
-	}
-	, BUSCAR_PROFESOR("Buscar profesor.") {
+	},
+	BUSCAR_PROFESOR("Buscar profesor.") {
 		public void ejecutar() {
 			vista.buscarProfesor();
 		}
-	}
-	, LISTAR_PROFESORES("Listar profesores.") {
+	},
+	LISTAR_PROFESORES("Listar profesores.") {
 		public void ejecutar() {
 			vista.listarProfesores();
 		}
-	}
-	, INSERTAR_RESERVA("Insertar reserva.") {
+	},
+	INSERTAR_RESERVA("Insertar reserva.") {
 		public void ejecutar() {
 			vista.realizarReserva();
 		}
-	}
-	, BORRAR_RESERVA("Borrar reserva.") {
+	},
+	BORRAR_RESERVA("Borrar reserva.") {
 		public void ejecutar() {
 			vista.anularReserva();
 		}
-	}
-	, LISTAR_RESERVAS("Listar reservas.") {
+	},
+	LISTAR_RESERVAS("Listar reservas.") {
 		public void ejecutar() {
 			vista.listarReservas();
 		}
-	}
-	, LISTAR_RESERVAS_AULA("Listar reservas por aula.") {
+	},
+	LISTAR_RESERVAS_AULA("Listar reservas por aula.") {
 		public void ejecutar() {
 			vista.listarReservasAula();
 		}
-	}
-	, LISTAR_RESERVAS_PROFESOR("Listar reservas por profesor.") {
+	},
+	LISTAR_RESERVAS_PROFESOR("Listar reservas por profesor.") {
 		public void ejecutar() {
 			vista.listarReservasProfesor();
 		}
-	}
-	, LISTAR_RESERVAS_PERMANENCIA("Listar reservas por permanencia.") {
+	},
+	LISTAR_RESERVAS_PERMANENCIA("Listar reservas por permanencia.") {
 		public void ejecutar() {
 			vista.listarReservasPermanencia();
 		}
-	}
-	, CONSULTAR_DISPONIBILIDAD("Consultar disponibilidad.") {
+	},
+	CONSULTAR_DISPONIBILIDAD("Consultar disponibilidad.") {
 		public void ejecutar() {
 			vista.consultarDisponibilidad();
 		}
@@ -95,7 +96,9 @@ public enum Opcion {
 
 	/**
 	 * Constructor privado para evitar instanciar objetos de la clase.
-	 * @param mensajeAMostrar el título de la opción
+	 * 
+	 * @param mensajeAMostrar
+	 *            el título de la opción
 	 */
 	private Opcion(String mensajeAMostrar) {
 		this.mensajeAMostrar = mensajeAMostrar;
@@ -103,6 +106,7 @@ public enum Opcion {
 
 	/**
 	 * Método get que devuelve el título de la opción
+	 * 
 	 * @return el título de la opción
 	 */
 	public String getMensaje() {
@@ -116,7 +120,10 @@ public enum Opcion {
 
 	/**
 	 * Método set que inicializa la variable vista
-	 * @param vist objeto de la clase VistaReservasAulas sobre el que se van a realizar las opciones
+	 * 
+	 * @param vist
+	 *            objeto de la clase VistaReservasAulas sobre el que se van a
+	 *            realizar las opciones
 	 */
 	protected static void setVista(IVistaReservasAulas vist) {
 		vista = vist;
@@ -124,6 +131,7 @@ public enum Opcion {
 
 	/**
 	 * Define como debe mostrarse un objeto Opcion
+	 * 
 	 * @return mensajeAMostrar el título de la opción
 	 */
 	public String toString() {
@@ -132,7 +140,9 @@ public enum Opcion {
 
 	/**
 	 * Devuelve la opción correspondiente al valor recibido
-	 * @param ordinal el valor de la opción
+	 * 
+	 * @param ordinal
+	 *            el valor de la opción
 	 * @return la opción correspondiente al ordinal
 	 */
 	public static Opcion getOpcionSegunOrdinal(int ordinal) {
@@ -141,11 +151,13 @@ public enum Opcion {
 
 	/**
 	 * Comprueba si un ordinal está dentro del rango de valores de Opcion
-	 * @param ordinal el valor de la opción que se desea seleccionar
+	 * 
+	 * @param ordinal
+	 *            el valor de la opción que se desea seleccionar
 	 * @return True si el valor está dentro del rango, False si no
 	 */
 	public static boolean esOrdinalValido(int ordinal) {
-		if(ordinal>=0 && ordinal<Opcion.values().length)
+		if (ordinal >= 0 && ordinal < Opcion.values().length)
 			return true;
 		return false;
 	}

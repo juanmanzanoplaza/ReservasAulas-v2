@@ -4,6 +4,7 @@ import org.iesalandalus.programacion.reservasaulas.controlador.IControladorReser
 
 /**
  * Interfaz de la clase VistaReservasAulas
+ * 
  * @see VistaReservasAulas
  * @author Juan Antonio Manzano Plaza
  * @version 2

@@ -11,12 +11,13 @@ import org.iesalandalus.programacion.reservasaulas.modelo.dominio.permanencia.Pe
 
 /**
  *
-* Interfaz de la clase ControladorReservasAulas
-* @see ControladorReservasAulas
-* @author Juan Antonio Manzano Plaza
-* @version 2
-*
-*/
+ * Interfaz de la clase ControladorReservasAulas
+ * 
+ * @see ControladorReservasAulas
+ * @author Juan Antonio Manzano Plaza
+ * @version 2
+ *
+ */
 public interface IControladorReservasAulas {
 
 	void comenzar();

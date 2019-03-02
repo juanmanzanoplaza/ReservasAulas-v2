@@ -11,12 +11,13 @@ import org.iesalandalus.programacion.reservasaulas.modelo.dominio.permanencia.Pe
 
 /**
  *
-* Interfaz de la clase ModeloReservasAulas
-* @see ModeloReservasAulas
-* @author Juan Antonio Manzano Plaza
-* @version 2
-*
-*/
+ * Interfaz de la clase ModeloReservasAulas
+ * 
+ * @see ModeloReservasAulas
+ * @author Juan Antonio Manzano Plaza
+ * @version 2
+ *
+ */
 public interface IModeloReservasAulas {
 
 	List<Aula> getAulas();

@@ -4,8 +4,9 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 /**
- * Clase que representa durante cuanto tiempo se reserva un aula. Esta clase permite
- * que se pueda reservar un aula por un tramo completo (mañana o tarde)
+ * Clase que representa durante cuanto tiempo se reserva un aula. Esta clase
+ * permite que se pueda reservar un aula por un tramo completo (mañana o tarde)
+ * 
  * @author Juan Antonio Manzano Plaza
  * @version 2
  *
@@ -17,9 +18,13 @@ public class PermanenciaPorTramo extends Permanencia {
 
 	/**
 	 * Constructor de la clase
-	 * @param dia el día que es reservada el aula
-	 * @param tramo el tramo para el que es reservada el aula
-	 * @throws IllegalArgumentException si el día o el tramo no son válidos
+	 * 
+	 * @param dia
+	 *            el día que es reservada el aula
+	 * @param tramo
+	 *            el tramo para el que es reservada el aula
+	 * @throws IllegalArgumentException
+	 *             si el día o el tramo no son válidos
 	 */
 	public PermanenciaPorTramo(LocalDate dia, Tramo tramo) throws IllegalArgumentException {
 		super(dia);
@@ -28,9 +33,13 @@ public class PermanenciaPorTramo extends Permanencia {
 
 	/**
 	 * Constructor de la clase
-	 * @param dia el día que es reservada el aula
-	 * @param tramo el tramo para el que es reservada el aula
-	 * @throws IllegalArgumentException si el día o el tramo parámetros no son válidos
+	 * 
+	 * @param dia
+	 *            el día que es reservada el aula
+	 * @param tramo
+	 *            el tramo para el que es reservada el aula
+	 * @throws IllegalArgumentException
+	 *             si el día o el tramo parámetros no son válidos
 	 */
 	public PermanenciaPorTramo(String dia, Tramo tramo) throws IllegalArgumentException {
 		super(dia);
@@ -39,11 +48,14 @@ public class PermanenciaPorTramo extends Permanencia {
 
 	/**
 	 * Constructor copia
-	 * @param otra la permanencia a copiar
-	 * @throws IllegalArgumentException si la permanencia es nula
+	 * 
+	 * @param otra
+	 *            la permanencia a copiar
+	 * @throws IllegalArgumentException
+	 *             si la permanencia es nula
 	 */
 	public PermanenciaPorTramo(PermanenciaPorTramo otra) throws IllegalArgumentException {
-		if(otra==null)
+		if (otra == null)
 			throw new IllegalArgumentException("No se puede copiar una permanencia nula.");
 		super.setDia(otra.getDia());
 		setTramo(otra.getTramo());
@@ -51,6 +63,7 @@ public class PermanenciaPorTramo extends Permanencia {
 
 	/**
 	 * Método get para el tramo de la reserva
+	 * 
 	 * @return el tramo para el que es reservada el aula
 	 */
 	public Tramo getTramo() {
@@ -59,17 +72,21 @@ public class PermanenciaPorTramo extends Permanencia {
 
 	/**
 	 * Método set para el tramo de la reserva
-	 * @param tramo el tramo para el que es reservada el aula
-	 * @throws IllegalArgumentException si el tramo es nulo
+	 * 
+	 * @param tramo
+	 *            el tramo para el que es reservada el aula
+	 * @throws IllegalArgumentException
+	 *             si el tramo es nulo
 	 */
 	private void setTramo(Tramo tramo) throws IllegalArgumentException {
-		if(tramo==null)
+		if (tramo == null)
 			throw new IllegalArgumentException("El tramo de una permanencia no puede ser nulo.");
 		this.tramo = tramo;
 	}
 
 	/**
 	 * Método get para el número de puntos que cuesta reservar esta Permanencia
+	 * 
 	 * @return el número de puntos que cuesta reservar esta Permanencia
 	 */
 	public int getPuntos() {
@@ -78,6 +95,7 @@ public class PermanenciaPorTramo extends Permanencia {
 
 	/**
 	 * Método hashCode para la clase. Sirve para diferenciar objetos.
+	 * 
 	 * @return el código hash correspondiente al objeto
 	 */
 	public int hashCode() {
@@ -86,19 +104,22 @@ public class PermanenciaPorTramo extends Permanencia {
 
 	/**
 	 * Método equals para la clase. Compara dos PermanenciaPorTramo
+	 * 
 	 * @return true si son iguales, false si no lo son
 	 */
 	public boolean equals(Object o) {
-		if(!(o instanceof PermanenciaPorTramo))
+		if (!(o instanceof PermanenciaPorTramo))
 			return false;
 		PermanenciaPorTramo otra = (PermanenciaPorTramo) o;
-		if(this.getDia().equals(otra.getDia()) && this.getTramo().equals(otra.getTramo()))
+		if (this.getDia().equals(otra.getDia()) && this.getTramo().equals(otra.getTramo()))
 			return true;
 		return false;
 	}
 
 	/**
-	 * Método toString de la clase. Define como debe mostrarse una PermanenciaPorTramo
+	 * Método toString de la clase. Define como debe mostrarse una
+	 * PermanenciaPorTramo
+	 * 
 	 * @return la representación en forma de texto de la Permanencia
 	 */
 	public String toString() {
